@@ -7,8 +7,19 @@ const router = express.Router();
 
 router.get("/", async (req, res) => {
   try {
-    const user = await await User.find().populate("favorites");
+    const user = await User.find().populate("mascotas");
     return res.status(200).json(user);
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+});
+
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const userById = await  (await User.find({ id }).populate("mascotas"));
+    return res.status(200).json(userById);
   } catch (err) {
     return res.status(500).json(err);
   }
@@ -67,7 +78,7 @@ router.post("/logout", (req, res, next) => {
   }
 });
 
-router.put("/add-mascota", async (req, res, next) => {
+router.put("/add-mascotas", async (req, res, next) => {
   try {
     const { userId } = req.body;
     const { mascotaId } = req.body;
