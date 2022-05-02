@@ -17,7 +17,7 @@ router.get("/:nombre", async (req, res) => {
   const { nombre } = req.params;
 
   try {
-    const mascotaByName = await Mascotas.find({ nombre });
+    const mascotaByName = await Mascotas.findOne({ nombre });
     return res.status(200).json(mascotaByName);
   } catch (err) {
     return res.status(500).json(err);
